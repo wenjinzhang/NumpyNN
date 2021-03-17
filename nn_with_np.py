@@ -34,5 +34,5 @@ net.add(ActivationLayer(relu, relu_prime))
 net.add(FCLayer(50, 10))                    # input_shape=(batch, 50)       ;   output_shape=(batch, 10)
 
 net.use(softmax_cross_entropy_with_logits, softmax_cross_entropy_with_logits_prime)
-net.fit(x_train, y_train, epochs=40, learning_rate=0.1, evaluation=(x_test, y_test), gamma=0.9)
+net.fit(x_train, y_train, epochs=10, learning_rate=0.1, evaluation=(x_test, y_test), gamma=0.9)
 

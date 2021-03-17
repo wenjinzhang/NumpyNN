@@ -46,22 +46,18 @@ class FCLayer(Layer):
         dW = np.dot(self.input.T, upstream_gradient)
         dB = np.sum(upstream_gradient, axis=0, keepdims=True)
 
-        # print("local gradient",dHidden.shape)
-        # print("weight",dW.shape)
-        # print("bias",dB.shape)
-
-        # update parameter with gradient
-        # self.weights -= learning_rate * dW
-        # self.bias -= learning_rate * dB
-
         # implement momentum algorithm
         # https://gluon.mxnet.io/chapter06_optimization/momentum-scratch.html
         self.V_dW = gamma * self.V_dW + dW
         self.V_dB = gamma * self.V_dB + dB
         
-        # update parameters with velocity
+        # gradient descent with momentum
         self.weights -= learning_rate * self.V_dW
         self.bias -= learning_rate * self.V_dB
+
+        # gradient descent without momentum
+        # self.weights -= learning_rate * dW
+        # self.bias -= learning_rate * dB
 
         return dHidden
 

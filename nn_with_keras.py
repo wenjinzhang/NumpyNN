@@ -22,4 +22,4 @@ network.compile(optimizer='rmsprop',
                 loss='categorical_crossentropy',
                 metrics=['accuracy'])
 
-network.fit(train_images, train_labels_one_hot, validation_data = (test_images, test_labels_one_hot), epochs=20, batch_size=128)
+network.fit(train_images, train_labels_one_hot, validation_data = (test_images, test_labels_one_hot), epochs=10, batch_size=128)
