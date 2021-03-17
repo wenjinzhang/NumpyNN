@@ -1,9 +1,7 @@
 import numpy as np
 
 from network import Network
-# from fc_layer import FCLayer
 from layer import FCLayer, ActivationLayer
-# from activation_layer import ActivationLayer
 from activations import relu, relu_prime
 from losses import softmax_cross_entropy_with_logits, softmax_cross_entropy_with_logits_prime
 
