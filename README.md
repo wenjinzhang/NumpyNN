@@ -29,7 +29,7 @@ net.fit(x_train, y_train, epochs=10, learning_rate=0.1, evaluation=(x_test, y_te
 ## Example: testing MNIST dataset
 *You may need to install keras for downloading mnist dataset*
 ```
-#test MNIST dataset
+#test on MNIST dataset
 python nn_with_np.py
 
 # compare with keras 
@@ -39,7 +39,7 @@ python nn_with_keras.py
 python nn_with_pytorch.py
 ```
  Result:
- 
+ ![Image](https://github.com/wenjinzhang/NumpyNN/blob/master/test.png)
 
 
 
