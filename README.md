@@ -1,7 +1,7 @@
 # NumpyNN
 ## Building Neural Networks with only numpy
 
-Now it supports fc layer, relu, tanh, softmax, mse, cross_entropy, Mini-bathc gradient descent without momentum and Mini-bathc gradient descent with momentum
+Now it supports fc layer, relu, tanh, softmax, mse, cross_entropy, Mini-batch gradient descent without momentum and Mini-batch gradient descent with momentum
 ## How to build neural network with NumpyNN?
 Create a fc neural network with Network class
 ```
