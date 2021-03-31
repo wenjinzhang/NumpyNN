@@ -35,22 +35,19 @@ class FCLayer(Layer):
         self.output = np.dot(self.input, self.weights) + self.bias
         return self.output
 
-    # computes dE/dW, dE/dB for a given upstream_gradient=dE/dY. Returns input_error=dE/dX.
+    # computes dE/dW, dE/dB for a given upstream_gradient=dE/dY. Returns dE/dX.
     def backward_propagation(self, upstream_gradient, learning_rate=0.1, gamma=0.9):
         # print("upstream gradient",upstream_gradient.shape)
         # print("weight",self.weights.shape)
         # print("bias",self.bias.shape)
         # print("input", self.input.shape)
-        
         dHidden = np.dot(upstream_gradient, self.weights.T)
         dW = np.dot(self.input.T, upstream_gradient)
         dB = np.sum(upstream_gradient, axis=0, keepdims=True)
-
         # implement momentum algorithm
         # https://gluon.mxnet.io/chapter06_optimization/momentum-scratch.html
         self.V_dW = gamma * self.V_dW + dW
         self.V_dB = gamma * self.V_dB + dB
-        
         # gradient descent with momentum
         self.weights -= learning_rate * self.V_dW
         self.bias -= learning_rate * self.V_dB

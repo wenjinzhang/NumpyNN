@@ -76,7 +76,6 @@ class Network:
             train_result = np.concatenate(train_result, axis=0)
             
             train_accuracy = sum([y_ == y for y_, y in zip(train_result, y_train)])/y_train.shape[0] * 100
-            
 
             # evaluate when getting evaluation dataset
             if evaluation != None:
