@@ -123,7 +123,7 @@ class Conv2Layer(Layer):
 
         # output metrix
         Z = np.zeros(shape=(batch_size, n_H, n_W, self.f_out))
-        X_pad = pad_inputs(X, (pad_h, pad_w))
+        X_pad = self.pad_inputs(X, (pad_h, pad_w))
 
         for i in range(batch_size):
             x = X_pad[i]
@@ -136,7 +136,7 @@ class Conv2Layer(Layer):
 
                     for c in range(self.f_out):
                         x_slice = x[vert_start: vert_end, horiz_start: horiz_end, :]
-                        Z[i, h, w, c] = conv_single_step(x_slice, self.filters[:, :, :, c], self.bias[:, :, :, c])
+                        Z[i, h, w, c] = self.conv_single_step(x_slice, self.filters[:, :, :, c], self.bias[:, :, :, c])
         
         return Z
 
@@ -151,8 +151,8 @@ class Conv2Layer(Layer):
         dA = np.zeros((batch_size, prev_height, prev_width, prev_channels))
         self.init_grad()
 
-        A_pad = pad_inputs(self.input, (self.pad_h, self.pad_w))
-        dA_pad = pad_inputs(dA, (self.pad_h, self.pad_w))
+        A_pad = self.pad_inputs(self.input, (self.pad_h, self.pad_w))
+        dA_pad = self.pad_inputs(dA, (self.pad_h, self.pad_w))
 
         for i in range(batch_size):
             a_pad = A_pad[i]
@@ -183,28 +183,28 @@ class Conv2Layer(Layer):
         return dA
 
 
-def conv_single_step(input, weights, bias):
-    '''
-        Function to apply one filter to input slice.
-        :param input:[numpy array]: slice of input data of shape (f, f, n_C_prev)
-        :param W:[numpy array]: One filter of shape (f, f, n_C_prev)
-        :param b:[numpy array]: Bias value for the filter. Shape (1, 1, 1)
-        :return:
-    '''
-    # print(np.shape(input))
-    # print(np.shape(weights))
-    # print(np.shape(bias)
-    return np.sum(np.multiply(input, weights)) + float(bias)
+    def conv_single_step(self, input, weights, bias):
+        '''
+            Function to apply one filter to input slice.
+            :param input:[numpy array]: slice of input data of shape (f, f, n_C_prev)
+            :param W:[numpy array]: One filter of shape (f, f, n_C_prev)
+            :param b:[numpy array]: Bias value for the filter. Shape (1, 1, 1)
+            :return:
+        '''
+        # print(np.shape(input))
+        # print(np.shape(weights))
+        # print(np.shape(bias)
+        return np.sum(np.multiply(input, weights)) + float(bias)
 
 
-def pad_inputs(X, pad):
-    '''
-    Function to apply zero padding to the image
-    :param X:[numpy array]: Dataset of shape (m, height, width, depth)
-    :param pad:[int]: number of columns to pad
-    :return:[numpy array]: padded dataset
-    '''
-    return np.pad(X, ((0, 0), (pad[0], pad[0]), (pad[1], pad[1]), (0, 0)), 'constant')
+    def pad_inputs(self, X, pad):
+        '''
+        Function to apply zero padding to the image
+        :param X:[numpy array]: Dataset of shape (m, height, width, depth)
+        :param pad:[int]: number of columns to pad
+        :return:[numpy array]: padded dataset
+        '''
+        return np.pad(X, ((0, 0), (pad[0], pad[0]), (pad[1], pad[1]), (0, 0)), 'constant')
 
 
 class PoolLayer(Layer):
