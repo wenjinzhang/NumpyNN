@@ -37,7 +37,7 @@ class Network:
         return result
 
     # train the network
-    def fit(self, x_train, y_train, epochs, learning_rate, print_interval=100, evaluation = None, gamma=0.9):
+    def fit(self, x_train, y_train, epochs, learning_rate, print_interval=5, evaluation = None, gamma=0.9):
         # num of samples 
         samples = len(x_train)
         
@@ -70,9 +70,9 @@ class Network:
                 for layer in reversed(self.layers):
                     gradient = layer.backward_propagation(gradient, learning_rate, gamma)
                 
-                # if batch_idx % print_interval == 0:
-                #      print('epoch %d/%d batch: %d error:%f' % (i+1, epochs, batch_idx,loss))
-                # batch_idx += 1
+                if batch_idx % print_interval == 0:
+                     print('epoch %d/%d batch: %d error:%f' % (i+1, epochs, batch_idx,loss))
+                batch_idx += 1
             train_result = np.concatenate(train_result, axis=0)
             
             train_accuracy = sum([y_ == y for y_, y in zip(train_result, y_train)])/y_train.shape[0] * 100
