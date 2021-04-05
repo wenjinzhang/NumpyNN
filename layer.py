@@ -104,7 +104,7 @@ class Conv2Layer(Layer):
     def forward_propagation(self, X):
         # 4+D tensor with shape: batch_shape + (rows, cols, channels)
         (batch_size, prev_height, prev_width, prev_channels) = X.shape
-
+        
         self.input = X
 
         # following code can be improve
@@ -136,9 +136,8 @@ class Conv2Layer(Layer):
 
                     for c in range(self.f_out):
                         x_slice = x[vert_start: vert_end, horiz_start: horiz_end, :]
-
                         Z[i, h, w, c] = conv_single_step(x_slice, self.filters[:, :, :, c], self.bias[:, :, :, c])
-
+        
         return Z
 
     # computes dE/dW, dE/dB for a given upstream_gradient=dE/dY. Returns dE/dX.

@@ -26,16 +26,15 @@ x_test /= 255
 y_test = y_test.reshape(y_test.shape[0], 1)
 
 # Network
-net = Network()
-net.add(Conv2Layer(1, 32, padding='same'))
+net = Network(batch_size=16)
+net.add(Conv2Layer(1, 10, padding='same')) # input_shape=(bacth, 28, 28, 1)
 net.add(ActivationLayer(relu, relu_prime))
 net.add(PoolLayer(kernel_shape=2, stride=2))
-
-net.add(Conv2Layer(32, 64, padding='same'))
+net.add(Conv2Layer(10, 20, padding='same'))
 net.add(ActivationLayer(relu, relu_prime))
 net.add(PoolLayer(kernel_shape=2, stride=2))
 net.add(FlattenLayer())
-net.add(FCLayer(7*7*64, 200))                # input_shape=(bacth, 784)    ;   output_shape=(batch, 200)
+net.add(FCLayer(7*7*20, 200))
 net.add(ActivationLayer(relu, relu_prime))
 net.add(FCLayer(200, 50))                   # input_shape=(batch, 200)      ;   output_shape=(batch, 50)
 net.add(ActivationLayer(relu, relu_prime))
@@ -43,5 +42,5 @@ net.add(FCLayer(50, 10))                    # input_shape=(batch, 50)       ;   
 
 net.use(softmax_cross_entropy_with_logits, softmax_cross_entropy_with_logits_prime)
 
-net.fit(x_train, y_train, epochs=10, learning_rate=0.1, evaluation=(x_test, y_test), gamma=0.9)
+net.fit(x_train, y_train, epochs=10, learning_rate=0.01, evaluation=(x_test, y_test), gamma=0.9)
 
