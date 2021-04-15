@@ -37,7 +37,7 @@ class Network:
         return result
 
     # train the network
-    def fit(self, x_train, y_train, epochs, learning_rate, print_interval=5, evaluation = None, gamma=0.9):
+    def fit(self, x_train, y_train, epochs, learning_rate, print_interval=200, evaluation = None, gamma=0.9):
         # num of samples 
         samples = len(x_train)
         
