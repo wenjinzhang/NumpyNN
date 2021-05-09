@@ -1,6 +1,5 @@
 import numpy as np
 
-import Nylib
 from Nylib.network import Network
 from Nylib.layer import FCLayer, ActivationLayer, FlattenLayer, Conv2Layer,PoolLayer
 from Nylib.activations import relu, relu_prime
